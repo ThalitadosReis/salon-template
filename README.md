@@ -2,8 +2,6 @@
 
 Modern salon website template built with React, Vite, Tailwind CSS v4, and a small Express + Nodemailer backend for reservation emails.
 
-Live site: `https://template-salon.netlify.app/`
-
 ## Stack
 
 - React 18

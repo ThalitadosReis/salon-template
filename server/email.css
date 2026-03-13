@@ -1,47 +1,99 @@
 .email-shell {
-  font-family: Georgia, serif;
-  max-width: 520px;
+  font-family: "Avenir Next", "Segoe UI", Arial, sans-serif;
+  max-width: 620px;
   margin: 0 auto;
-  color: #2c2520;
+  color: #292524;
+  background: #fafaf9;
+  border: 1px solid #e7e5e4;
+}
+
+.email-inner {
+  padding: 28px 26px;
+}
+
+.email-brand {
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e7e5e4;
+}
+
+.email-kicker {
+  margin: 0 0 6px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #78716c;
+}
+
+.email-brand-name {
+  margin: 0;
+  font-size: 21px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1c1917;
+  font-weight: 500;
 }
 
 .email-title {
-  font-weight: 400;
-  font-size: 24px;
+  margin: 0 0 10px;
+  font-size: 25px;
+  font-weight: 500;
+  color: #1c1917;
 }
 
-.email-title-with-border {
-  border-bottom: 1px solid #e8d5c4;
-  padding-bottom: 12px;
+.email-body {
+  margin: 0 0 14px;
+  color: #57534e;
+  line-height: 1.65;
+}
+
+.email-panel {
+  background: #f5f5f4;
+  border: 1px solid #e7e5e4;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 18px;
 }
 
 .email-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+}
+
+.email-row + .email-row td {
+  border-top: 1px solid #e7e5e4;
 }
 
 .email-label {
-  color: #9c8878;
-  font-size: 12px;
+  width: 34%;
+  padding: 10px 0;
+  color: #78716c;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  width: 30%;
+  letter-spacing: 0.12em;
+  vertical-align: top;
 }
 
 .email-cell {
-  padding: 8px 0;
+  padding: 10px 0;
+  color: #292524;
 }
 
-.email-body {
-  color: #6b5d52;
-  line-height: 1.7;
+.email-list {
+  margin: 16px 0 0;
+  padding-left: 18px;
+  color: #44403c;
+}
+
+.email-list li {
+  margin-bottom: 7px;
 }
 
 .email-footnote {
-  color: #9c8878;
-  font-size: 13px;
-  margin-top: 32px;
-  border-top: 1px solid #e8d5c4;
+  margin-top: 24px;
   padding-top: 16px;
+  border-top: 1px solid #e7e5e4;
+  font-size: 13px;
+  color: #78716c;
+  line-height: 1.6;
 }

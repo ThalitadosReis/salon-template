@@ -1,6 +1,8 @@
-# Salon Template
+# [ Salon Template ](https://template-salon.netlify.app/)
 
 Modern salon website template built with React, Vite, Tailwind CSS v4, and a small Express + Nodemailer backend for reservation emails.
+
+Live site: `https://template-salon.netlify.app/`
 
 ## Stack
 
@@ -19,8 +21,6 @@ npm install
 npm run dev      # frontend (Vite)
 npm run server   # backend email API (Express)
 ```
-
-Default backend port is `3001` (configurable via `.env`).
 
 ## Environment Variables
 

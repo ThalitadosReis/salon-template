@@ -97,43 +97,88 @@ exports.handler = async (event) => {
     },
   });
 
+  const salonBrand = "Salon Hair & Beauty";
+  const salonAddress = "Bahnhofstrasse 12, 6010 Kriens";
+  const salonPhone = "+41 64 123 45 67";
+  const salonEmail = process.env.SALON_EMAIL || "hello@yoursalon.ch";
+  const salonHours = "Mon - Fri 9:00 - 19:00 | Sat 9:00 - 17:00 | Sun Closed";
+
   try {
     await transporter.sendMail({
       from: `"${escapeHtml(name)}" <${smtpUser}>`,
-      to: process.env.SALON_EMAIL || smtpUser,
+      to: salonEmail,
       replyTo: email,
       subject: `New Appointment Request - ${service || "General"} - ${formattedDate} ${time}`,
       html: renderEmailHtml(`
         <div class="email-shell">
-          <h2 class="email-title email-title-with-border">New Appointment Request</h2>
-          <table class="email-table">
-            <tr><td class="email-label email-cell">Name</td><td class="email-cell">${escapeHtml(name)}</td></tr>
-            <tr><td class="email-label email-cell">Email</td><td class="email-cell">${escapeHtml(email)}</td></tr>
-            <tr><td class="email-label email-cell">Phone</td><td class="email-cell">${escapeHtml(phone || "-")}</td></tr>
-            <tr><td class="email-label email-cell">Service</td><td class="email-cell">${escapeHtml(service || "-")}</td></tr>
-            <tr><td class="email-label email-cell">Date</td><td class="email-cell">${escapeHtml(formattedDate)}</td></tr>
-            <tr><td class="email-label email-cell">Time</td><td class="email-cell">${escapeHtml(time)}</td></tr>
-            <tr><td class="email-label email-cell">Message</td><td class="email-cell">${escapeHtml(message || "-")}</td></tr>
-          </table>
+          <div class="email-inner">
+            <div class="email-brand">
+              <p class="email-kicker">New Booking</p>
+              <h1 class="email-brand-name">${salonBrand}</h1>
+            </div>
+
+            <h2 class="email-title">Appointment Request Received</h2>
+            <p class="email-body">
+              A new request was submitted through the website contact form.
+            </p>
+
+            <div class="email-panel">
+              <table class="email-table">
+                <tr class="email-row"><td class="email-label">Name</td><td class="email-cell">${escapeHtml(name)}</td></tr>
+                <tr class="email-row"><td class="email-label">Email</td><td class="email-cell">${escapeHtml(email)}</td></tr>
+                <tr class="email-row"><td class="email-label">Phone</td><td class="email-cell">${escapeHtml(phone || "-")}</td></tr>
+                <tr class="email-row"><td class="email-label">Service</td><td class="email-cell">${escapeHtml(service || "-")}</td></tr>
+                <tr class="email-row"><td class="email-label">Preferred Date</td><td class="email-cell">${escapeHtml(formattedDate)}</td></tr>
+                <tr class="email-row"><td class="email-label">Preferred Time</td><td class="email-cell">${escapeHtml(time)}</td></tr>
+                <tr class="email-row"><td class="email-label">Message</td><td class="email-cell">${escapeHtml(message || "-")}</td></tr>
+              </table>
+            </div>
+
+            <p class="email-footnote">
+              Reply directly to this email to respond to the client.
+            </p>
+          </div>
         </div>
       `),
     });
 
     await transporter.sendMail({
-      from: `"Salon Hair & Beauty" <${smtpUser}>`,
+      from: `"${salonBrand}" <${smtpUser}>`,
       to: email,
-      subject: "Your appointment request has been received",
+      subject: "Appointment request received - Salon Hair & Beauty",
       html: renderEmailHtml(`
         <div class="email-shell">
-          <h2 class="email-title">Thank you, ${escapeHtml(name)}!</h2>
-          <p class="email-body">
-            We've received your appointment request for <strong>${escapeHtml(service || "a service")}</strong>
-            on <strong>${escapeHtml(formattedDate)} at ${escapeHtml(time)}</strong>. We'll be in touch shortly to confirm.
-          </p>
-          <p class="email-body">Looking forward to seeing you!</p>
-          <p class="email-footnote">
-            Salon Hair & Beauty · Bahnhofstrasse 12, 6010 Kriens · +41 41 123 45 67
-          </p>
+          <div class="email-inner">
+            <div class="email-brand">
+              <p class="email-kicker">Booking Confirmation</p>
+              <h1 class="email-brand-name">${salonBrand}</h1>
+            </div>
+
+            <h2 class="email-title">Thank you, ${escapeHtml(name)}.</h2>
+            <p class="email-body">
+              We've received your appointment request and our team will confirm it shortly.
+            </p>
+
+            <div class="email-panel">
+              <table class="email-table">
+                <tr class="email-row"><td class="email-label">Service</td><td class="email-cell">${escapeHtml(service || "-")}</td></tr>
+                <tr class="email-row"><td class="email-label">Preferred Date</td><td class="email-cell">${escapeHtml(formattedDate)}</td></tr>
+                <tr class="email-row"><td class="email-label">Preferred Time</td><td class="email-cell">${escapeHtml(time)}</td></tr>
+              </table>
+            </div>
+
+            <ul class="email-list">
+              <li>We'll review availability and get back to you by email or phone.</li>
+              <li>If you need to update your request, reply to this email.</li>
+            </ul>
+
+            <p class="email-footnote">
+              ${salonBrand}<br />
+              ${salonAddress}<br />
+              ${salonPhone} · ${salonEmail}<br />
+              ${salonHours}
+            </p>
+          </div>
         </div>
       `),
     });

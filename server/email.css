@@ -1,0 +1,47 @@
+.email-shell {
+  font-family: Georgia, serif;
+  max-width: 520px;
+  margin: 0 auto;
+  color: #2c2520;
+}
+
+.email-title {
+  font-weight: 400;
+  font-size: 24px;
+}
+
+.email-title-with-border {
+  border-bottom: 1px solid #e8d5c4;
+  padding-bottom: 12px;
+}
+
+.email-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.email-label {
+  color: #9c8878;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  width: 30%;
+}
+
+.email-cell {
+  padding: 8px 0;
+}
+
+.email-body {
+  color: #6b5d52;
+  line-height: 1.7;
+}
+
+.email-footnote {
+  color: #9c8878;
+  font-size: 13px;
+  margin-top: 32px;
+  border-top: 1px solid #e8d5c4;
+  padding-top: 16px;
+}

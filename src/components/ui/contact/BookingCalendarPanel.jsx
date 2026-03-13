@@ -44,7 +44,7 @@ export default function BookingCalendarPanel({
           {dayNames.map((dayName) => (
             <div
               key={dayName}
-              className="text-center text-sm tracking-[0.15em] uppercase font-ui text-stone-500 py-1"
+              className="text-center text-xs tracking-[0.2em] uppercase font-ui text-stone-500 py-1"
             >
               {dayName}
             </div>
@@ -85,7 +85,7 @@ export default function BookingCalendarPanel({
       <div className={CARD_CLASS}>
         <div className="flex items-center gap-2 mb-5">
           <ClockIcon size={15} className="text-stone-500" />
-          <span className="text-sm tracking-[0.3em] uppercase font-ui text-stone-500">
+          <span className="text-xs tracking-[0.2em] uppercase font-ui text-stone-500">
             {timeLabel}
           </span>
         </div>

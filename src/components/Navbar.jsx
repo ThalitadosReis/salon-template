@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { ListIcon, XIcon } from "@phosphor-icons/react";
 import { useLang } from "../i18n/LangContext";
+import CtaLink from "./ui/CtaLink";
 
 export default function Navbar() {
   const { t, lang, setLang } = useLang();
@@ -36,25 +37,27 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           <Link
             to="/"
-            className="text-xs tracking-[0.2em] uppercase font-ui text-stone-600 hover:text-stone-900 transition-colors duration-300"
+            className="text-[11px] tracking-[0.2em] uppercase font-ui text-stone-600 hover:text-stone-400 transition-colors duration-300"
           >
             {t.nav.home}
           </Link>
           <Link
             to="/services"
-            className="text-xs tracking-[0.2em] uppercase font-ui text-stone-600 hover:text-stone-900 transition-colors duration-300"
+            className="text-[11px] tracking-[0.2em] uppercase font-ui text-stone-600 hover:text-stone-400 transition-colors duration-300"
           >
             {t.nav.services}
           </Link>
-          <Link
+          <CtaLink
             to="/contact"
-            className="inline-flex items-center gap-3 px-8 py-3.5 text-[11px] tracking-[0.2em] uppercase font-ui rounded-full transition-colors duration-300 border border-stone-400 text-stone-700 hover:bg-stone-500 hover:text-white"
+            variant="outline"
+            showIcon={false}
+            className="px-6"
           >
             {t.nav.contact}
-          </Link>
+          </CtaLink>
           <button
             onClick={() => setLang(lang === "en" ? "de" : "en")}
-            className="text-xs tracking-[0.2em] uppercase font-ui text-stone-500 hover:text-stone-900 transition-colors duration-300 border-b border-dashed border-stone-400"
+            className="text-[11px] tracking-[0.2em] uppercase font-ui text-stone-500 hover:text-stone-400 transition-colors duration-300 border-b border-dashed border-stone-400"
           >
             {lang === "en" ? "DE" : "EN"}
           </button>

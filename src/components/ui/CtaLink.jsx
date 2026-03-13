@@ -17,17 +17,20 @@ export default function CtaLink({
   variant = "dark",
   className = "",
   iconSize = 14,
+  showIcon = true,
 }) {
   return (
     <Link
       to={to}
-      className={`${BASE_CLASS} ${VARIANT_CLASS[variant]} ${className}`}
+      className={`${BASE_CLASS} ${!showIcon ? "gap-0" : ""} ${VARIANT_CLASS[variant]} ${className}`}
     >
       {children}
-      <ArrowRightIcon
-        size={iconSize}
-        className="group-hover:translate-x-1 transition-transform duration-300"
-      />
+      {showIcon && (
+        <ArrowRightIcon
+          size={iconSize}
+          className="group-hover:translate-x-1 transition-transform duration-300"
+        />
+      )}
     </Link>
   );
 }

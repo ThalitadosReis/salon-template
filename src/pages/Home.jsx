@@ -173,7 +173,7 @@ export default function Home() {
               <SectionTextBlock label={a.label} title={a.title} body={a.body} />
               <Link
                 to="/services"
-                className="inline-flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase font-ui text-stone-700 border-b border-stone-400 pb-1 hover:text-stone-500 transition-colors duration-300 group"
+                className="inline-flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase font-ui text-stone-700 border-b border-stone-400 pb-1 hover:text-stone-500 transition-colors duration-300 group mt-8"
               >
                 {a.learnMore}
                 <ArrowRightIcon

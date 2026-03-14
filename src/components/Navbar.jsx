@@ -169,7 +169,10 @@ export default function Navbar() {
                 )}
 
                 <button
-                  onClick={() => setLang(lang === "en" ? "de" : "en")}
+                  onClick={() => {
+                    setLang(lang === "en" ? "de" : "en");
+                    setOpen(false);
+                  }}
                   className="w-fit mt-8 text-left text-xs tracking-[0.25em] uppercase font-ui text-stone-500 hover:text-stone-900 transition-colors duration-300 border-b border-dashed border-stone-400"
                 >
                   {lang === "en" ? "Deutsch" : "English"}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
-import { ListIcon, XIcon } from "@phosphor-icons/react";
+import { ListIcon, XIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { useLang } from "../i18n/LangContext";
 import CtaLink from "./ui/CtaLink";
 
@@ -10,106 +10,187 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const navLinks = [
+    { to: "/", label: t.nav.home },
+    { to: "/services", label: t.nav.services },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
-    window.addEventListener("scroll", onScroll);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => setOpen(false), [location]);
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
+
+  const isActive = (path) =>
+    path === "/"
+      ? location.pathname === "/"
+      : location.pathname.startsWith(path);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "bg-stone-50" : "bg-transparent"}`}
-    >
-      <nav className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
-        <Link to="/" className="flex flex-col leading-none select-none">
-          <span className="font-display text-2xl font-light tracking-[0.15em] text-stone-900 uppercase">
-            Salon
-          </span>
-          <span className="text-[10px] tracking-[0.35em] text-stone-500 uppercase font-ui font-light">
-            Hair & Beauty
-          </span>
-        </Link>
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled || open
+            ? "bg-stone-50/95 backdrop-blur-sm"
+            : "bg-transparent"
+        }`}
+      >
+        <nav className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+          <Link to="/" className="flex flex-col leading-none select-none">
+            <span className="font-display text-2xl font-light tracking-[0.15em] text-stone-900 uppercase">
+              Salon
+            </span>
+            <span className="text-[10px] tracking-[0.35em] text-stone-500 uppercase font-ui font-light">
+              Hair & Beauty
+            </span>
+          </Link>
 
-        {/* desktop nav */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link
-            to="/"
-            className="text-[11px] tracking-[0.2em] uppercase font-ui text-stone-600 hover:text-stone-400 transition-colors duration-300"
-          >
-            {t.nav.home}
-          </Link>
-          <Link
-            to="/services"
-            className="text-[11px] tracking-[0.2em] uppercase font-ui text-stone-600 hover:text-stone-400 transition-colors duration-300"
-          >
-            {t.nav.services}
-          </Link>
-          <CtaLink
-            to="/contact"
-            variant="outline"
-            showIcon={false}
-            className="px-6"
-          >
-            {t.nav.contact}
-          </CtaLink>
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`text-[11px] tracking-[0.2em] uppercase font-ui transition-colors duration-300 ${
+                  isActive(link.to)
+                    ? "text-stone-900"
+                    : "text-stone-600 hover:text-stone-400"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            <CtaLink
+              to="/contact"
+              variant="outline"
+              showIcon={false}
+              className="px-6"
+            >
+              {t.nav.contact}
+            </CtaLink>
+            <button
+              onClick={() => setLang(lang === "en" ? "de" : "en")}
+              className="text-[11px] tracking-[0.2em] uppercase font-ui text-stone-500 hover:text-stone-400 transition-colors duration-300 border-b border-dashed border-stone-400"
+            >
+              {lang === "en" ? "DE" : "EN"}
+            </button>
+          </div>
+
           <button
-            onClick={() => setLang(lang === "en" ? "de" : "en")}
-            className="text-[11px] tracking-[0.2em] uppercase font-ui text-stone-500 hover:text-stone-400 transition-colors duration-300 border-b border-dashed border-stone-400"
+            className="md:hidden text-stone-600 hover:text-stone-900 transition-colors duration-300"
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Close menu" : "Open menu"}
           >
-            {lang === "en" ? "DE" : "EN"}
+            {open ? <XIcon size={22} /> : <ListIcon size={22} />}
           </button>
-        </div>
+        </nav>
+      </header>
 
-        <button
-          className="md:hidden text-stone-600"
-          onClick={() => setOpen(!open)}
-        >
-          {open ? <XIcon size={22} /> : <ListIcon size={22} />}
-        </button>
-      </nav>
-
-      {/* mobile nav */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden bg-stone-50 border-t border-stone-200 overflow-hidden"
-          >
-            <div className="px-6 py-8 flex flex-col gap-6">
-              <Link
-                to="/"
-                className="text-xs tracking-[0.25em] uppercase font-ui text-stone-600"
-              >
-                {t.nav.home}
-              </Link>
-              <Link
-                to="/services"
-                className="text-xs tracking-[0.25em] uppercase font-ui text-stone-600"
-              >
-                {t.nav.services}
-              </Link>
-              <Link
-                to="/contact"
-                className="text-xs tracking-[0.25em] uppercase font-ui text-stone-600"
-              >
-                {t.nav.contact}
-              </Link>
-              <button
-                onClick={() => setLang(lang === "en" ? "de" : "en")}
-                className="w-fit text-left text-xs tracking-[0.25em] uppercase font-ui text-stone-500 hover:text-stone-900 transition-colors duration-300 border-b border-dashed border-stone-400"
-              >
-                {lang === "en" ? "Deutsch" : "English"}
-              </button>
-            </div>
-          </motion.div>
+          <>
+            <motion.div
+              className="fixed inset-0 z-40 bg-stone-900/45 backdrop-blur-sm md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setOpen(false)}
+            />
+
+            <motion.aside
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed inset-0 z-50 flex flex-col bg-stone-50 md:hidden"
+            >
+              <div className="flex h-20 items-center justify-between border-b border-stone-200 px-6">
+                <div className="flex flex-col leading-none">
+                  <span className="font-display text-xl font-light tracking-[0.15em] text-stone-900 uppercase">
+                    Salon
+                  </span>
+                  <span className="font-ui text-[9px] font-light tracking-[0.3em] text-stone-500 uppercase">
+                    Hair & Beauty
+                  </span>
+                </div>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="text-stone-700 transition-colors duration-300 hover:text-stone-900"
+                  aria-label="Close menu"
+                >
+                  <XIcon size={22} />
+                </button>
+              </div>
+
+              <nav className="flex flex-1 flex-col justify-center px-6">
+                {[...navLinks, { to: "/contact", label: t.nav.contact }].map(
+                  (link, i) => (
+                    <motion.div
+                      key={link.to}
+                      initial={{ opacity: 0, x: 16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: 0.08 + i * 0.07,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                    >
+                      <Link
+                        to={link.to}
+                        className={`group flex items-center justify-between border-b border-stone-200 py-5 ${
+                          isActive(link.to)
+                            ? "text-stone-900"
+                            : "text-stone-700 hover:text-stone-900"
+                        }`}
+                      >
+                        <span className="font-display text-3xl font-light">
+                          {link.label}
+                        </span>
+                        <ArrowRightIcon
+                          size={18}
+                          className="text-stone-500 transition-transform duration-300 group-hover:translate-x-1"
+                        />
+                      </Link>
+                    </motion.div>
+                  ),
+                )}
+
+                <button
+                  onClick={() => setLang(lang === "en" ? "de" : "en")}
+                  className="w-fit mt-8 text-left text-xs tracking-[0.25em] uppercase font-ui text-stone-500 hover:text-stone-900 transition-colors duration-300 border-b border-dashed border-stone-400"
+                >
+                  {lang === "en" ? "Deutsch" : "English"}
+                </button>
+              </nav>
+
+              <div className="border-t border-stone-200 px-6 py-6">
+                <p className="mb-2 text-[10px] tracking-[0.2em] uppercase font-ui text-stone-500">
+                  Get in touch
+                </p>
+                <a
+                  href="mailto:hello@yoursalon.ch"
+                  className="text-sm text-stone-700 transition-colors duration-300 hover:text-stone-900"
+                >
+                  hello@yoursalon.ch
+                </a>
+              </div>
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

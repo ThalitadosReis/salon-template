@@ -111,7 +111,7 @@ export default function Footer() {
       <div className="border-t border-stone-300 py-6 px-6 lg:px-12">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-2 items-center">
           <p className="text-xs font-ui text-stone-500">
-            © {new Date().getFullYear()} Salon Hair & Beauty.
+            © {new Date().getFullYear()} Salon Hair & Beauty. All rights reserved.
           </p>
           <p className="text-xs font-ui text-stone-500 md:text-right">
             <a

@@ -6,6 +6,7 @@ import {
   FacebookLogoIcon,
 } from "@phosphor-icons/react";
 import { useLang } from "../i18n/LangContext";
+import { ArrowUpRightIcon } from "@phosphor-icons/react/dist/ssr";
 
 export default function Footer() {
   const { t } = useLang();
@@ -113,7 +114,18 @@ export default function Footer() {
             © {new Date().getFullYear()} Salon Hair & Beauty.
           </p>
           <p className="text-xs font-ui text-stone-500 md:text-right">
-            Made by Thalita dos Reis
+            <a
+              href="https://thalitadosreis.ch/"
+              target="_blank"
+              rel="noreferrer"
+              className="transition-colors hover:text-stone-700"
+            >
+              Made by Thalita dos Reis
+              <ArrowUpRightIcon
+                size={12}
+                className="inline-block ml-1 text-stone-500"
+              />
+            </a>
           </p>
         </div>
       </div>

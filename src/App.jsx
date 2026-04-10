@@ -6,6 +6,8 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Contact from './pages/Contact'
+import Impressum from './pages/Impressum'
+import Privacy from './pages/Privacy'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -33,6 +35,8 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/impressum" element={<Impressum />} />
+            <Route path="/privacy" element={<Privacy />} />
           </Routes>
         </Layout>
       </BrowserRouter>

@@ -97,11 +97,12 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const salonBrand = "Salon Hair & Beauty";
+const salonBrand = "Maison Hair & Beauty";
 const salonAddress = "Bahnhofstrasse 12, 6010 Kriens";
 const salonPhone = "+41 64 123 45 67";
 const salonEmail = process.env.SALON_EMAIL || "hello@yoursalon.ch";
-const salonHours = "Mon - Fri 9:00 - 19:00 | Sat 9:00 - 17:00 | Sun Closed";
+const salonHours =
+  "Mon – Fri  9:00 – 19:00  ·  Sat  9:00 – 17:00  ·  Sun  Closed";
 
 app.post("/api/contact", async (req, res) => {
   const { name, email, phone, service, date, time, message } = req.body;
@@ -117,35 +118,37 @@ app.post("/api/contact", async (req, res) => {
       from: `"${name}" <${smtpUser || "your@email.com"}>`,
       to: salonEmail,
       replyTo: email,
-      subject: `New Appointment Request - ${service || "General"} - ${formattedDate} ${time}`,
+      subject: `New Appointment Request — ${service || "General"} · ${formattedDate} ${time}`,
       html: renderEmailHtml(`
         <div class="email-shell">
-          <div class="email-inner">
-            <div class="email-brand">
-              <p class="email-kicker">New Booking</p>
-              <h1 class="email-brand-name">${salonBrand}</h1>
-            </div>
+          <div class="email-header">
+            <p class="email-kicker">New Booking</p>
+            <p class="email-brand-name">Maison</p>
+            <p class="email-brand-sub">Hair &amp; Beauty Studio</p>
+          </div>
 
-            <h2 class="email-title">Appointment Request Received</h2>
-            <p class="email-body">
-              A new request was submitted through the website contact form.
-            </p>
+          <div class="email-body-wrap">
+            <p class="email-section-label">Appointment Request</p>
+            <h1 class="email-title">New booking<br>received</h1>
+            <p class="email-text">A new reservation request was submitted through the website. Reply directly to this email to reach the client.</p>
 
             <div class="email-panel">
               <table class="email-table">
-                <tr class="email-row"><td class="email-label">Name</td><td class="email-cell">${name}</td></tr>
-                <tr class="email-row"><td class="email-label">Email</td><td class="email-cell">${email}</td></tr>
-                <tr class="email-row"><td class="email-label">Phone</td><td class="email-cell">${phone || "-"}</td></tr>
-                <tr class="email-row"><td class="email-label">Service</td><td class="email-cell">${service || "-"}</td></tr>
-                <tr class="email-row"><td class="email-label">Preferred Date</td><td class="email-cell">${formattedDate}</td></tr>
-                <tr class="email-row"><td class="email-label">Preferred Time</td><td class="email-cell">${time}</td></tr>
-                <tr class="email-row"><td class="email-label">Message</td><td class="email-cell">${message || "-"}</td></tr>
+                <tr class="email-row"><td class="email-label">Name</td><td class="email-value">${name}</td></tr>
+                <tr class="email-row"><td class="email-label">Email</td><td class="email-value">${email}</td></tr>
+                <tr class="email-row"><td class="email-label">Phone</td><td class="email-value">${phone || "—"}</td></tr>
+                <tr class="email-row"><td class="email-label">Service</td><td class="email-value">${service || "—"}</td></tr>
+                <tr class="email-row"><td class="email-label">Date</td><td class="email-value">${formattedDate}</td></tr>
+                <tr class="email-row"><td class="email-label">Time</td><td class="email-value">${time}</td></tr>
+                <tr class="email-row"><td class="email-label">Message</td><td class="email-value">${message || "—"}</td></tr>
               </table>
             </div>
 
-            <p class="email-footnote">
-              Reply directly to this email to respond to the client.
-            </p>
+          </div>
+
+          <div class="email-footer">
+            <p class="email-footer-brand">Maison Hair &amp; Beauty Studio</p>
+            <p class="email-footer-text">${salonAddress} · ${salonPhone}</p>
           </div>
         </div>
       `),
@@ -155,38 +158,41 @@ app.post("/api/contact", async (req, res) => {
     await transporter.sendMail({
       from: `"${salonBrand}" <${smtpUser || "your@email.com"}>`,
       to: email,
-      subject: "Appointment request received - Salon Hair & Beauty",
+      subject: `Your appointment request — Maison Hair & Beauty`,
       html: renderEmailHtml(`
         <div class="email-shell">
-          <div class="email-inner">
-            <div class="email-brand">
-              <p class="email-kicker">Booking Confirmation</p>
-              <h1 class="email-brand-name">${salonBrand}</h1>
-            </div>
+          <div class="email-header">
+            <p class="email-kicker">Booking Received</p>
+            <p class="email-brand-name">Maison</p>
+            <p class="email-brand-sub">Hair &amp; Beauty Studio</p>
+          </div>
 
-            <h2 class="email-title">Thank you, ${name}.</h2>
-            <p class="email-body">
-              We've received your appointment request and our team will confirm it shortly.
-            </p>
+          <div class="email-body-wrap">
+            <p class="email-section-label">Confirmation</p>
+            <h1 class="email-title">Thank you,<br>${name}.</h1>
+            <p class="email-text">We've received your request and look forward to welcoming you. Our team will be in touch shortly to confirm your appointment.</p>
 
             <div class="email-panel">
               <table class="email-table">
-                <tr class="email-row"><td class="email-label">Service</td><td class="email-cell">${service || "-"}</td></tr>
-                <tr class="email-row"><td class="email-label">Preferred Date</td><td class="email-cell">${formattedDate}</td></tr>
-                <tr class="email-row"><td class="email-label">Preferred Time</td><td class="email-cell">${time}</td></tr>
+                <tr class="email-row"><td class="email-label">Service</td><td class="email-value">${service || "—"}</td></tr>
+                <tr class="email-row"><td class="email-label">Date</td><td class="email-value">${formattedDate}</td></tr>
+                <tr class="email-row"><td class="email-label">Time</td><td class="email-value">${time}</td></tr>
               </table>
             </div>
 
-            <ul class="email-list">
-              <li>We'll review availability and get back to you by email or phone.</li>
-              <li>If you need to update your request, reply to this email.</li>
+            <ul class="email-notes">
+              <li>We'll confirm availability and reach out by email or phone.</li>
+              <li>Need to make a change? Simply reply to this email.</li>
             </ul>
+          </div>
 
-            <p class="email-footnote">
-              ${salonBrand}<br />
-              ${salonAddress}<br />
-              ${salonPhone} · ${salonEmail}<br />
-              ${salonHours}
+          <div class="email-footer">
+            <p class="email-footer-brand">Maison Hair &amp; Beauty Studio</p>
+            <p class="email-footer-text">
+              ${salonAddress}<br>
+              ${salonPhone} · ${salonEmail}<br>
+              ${salonHours}<br><br>
+              A place to feel beautiful.
             </p>
           </div>
         </div>

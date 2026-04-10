@@ -1,4 +1,30 @@
+# Dependencies
 node_modules
+
+# Build output
 dist
+
+# Environment variables
 .env
+.env.local
+.env.*.local
+
+# Local tooling / cache
 .DS_Store
+.vite/
+.claude
+
+# Netlify CLI local state (not the config file netlify.toml)
+.netlify/state.json
+.netlify/functions-internal
+.netlify/v1
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Test coverage
+coverage

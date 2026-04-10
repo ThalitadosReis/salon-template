@@ -7,7 +7,7 @@ export default function IconInputField({ label, type, value, onChange, Icon }) {
       <div className="relative">
         <Icon
           size={14}
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500"
+          className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400"
         />
         <input
           type={type}

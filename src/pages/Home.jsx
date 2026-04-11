@@ -301,7 +301,7 @@ export default function Home() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase font-body font-medium text-stone-500 border-b border-dashed border-stone-300 pb-1 hover:text-stone-600 transition-colors"
+                className="hidden md:inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase font-body font-medium text-stone-500 border-b border-dashed border-stone-300 pb-1 hover:text-stone-600 transition-colors"
               >
                 <InstagramLogoIcon size={14} />
                 {g.viewMore}
@@ -334,6 +334,18 @@ export default function Home() {
               </motion.a>
             ))}
           </motion.div>
+
+          <div className="flex md:hidden justify-center mt-6">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase font-body font-medium text-stone-500 border-b border-dashed border-stone-300 pb-1 hover:text-stone-600 transition-colors"
+            >
+              <InstagramLogoIcon size={14} />
+              {g.viewMore}
+            </a>
+          </div>
         </div>
       </section>
     </main>

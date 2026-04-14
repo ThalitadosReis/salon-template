@@ -1,59 +1,52 @@
-# [ Salon Template ](https://template-salon.netlify.app/)
+# Salon Template
 
-Modern salon website template built with React, Vite, Tailwind CSS v4, and a small Express + Nodemailer backend for reservation emails.
+A modern salon website template built with React, Vite, and Tailwind CSS. Ships a polished marketing site, service pages, a booking/contact flow with date and time selection, multilingual content, and an Express plus Nodemailer backend for reservation emails.
 
-## Stack
+## Live Preview
+https://template-salon.netlify.app/
 
-- React 18
-- React Router 6
-- Vite 5
-- Tailwind CSS v4 (`@tailwindcss/vite`)
-- Motion (`motion`)
-- Phosphor Icons (`@phosphor-icons/react`)
-- Express + Nodemailer (email API)
+## Tech Stack
+- **Vite** · React · JavaScript
+- **React Router** · Tailwind CSS
+- **Motion** · Phosphor Icons
+- **Express** · Nodemailer
 
-## Run Locally
+## Pages
 
+| Route | Description |
+|-------|-------------|
+| `/` | Homepage |
+| `/services` | Services overview and treatment details |
+| `/contact` | Reservation form with calendar and time selection |
+| `/impressum` | Legal notice page |
+| `/privacy` | Privacy policy page |
+
+## Booking API
+The template sends reservation requests to `/api/contact` through the local Express server in `server/index.cjs`.
+
+## Getting Started
 ```bash
 npm install
-npm run dev      # frontend (Vite)
-npm run server   # backend email API (Express)
+npm run dev
+npm run server
 ```
 
 ## Environment Variables
-
 Copy `.env.example` to `.env` and configure:
 
-- `SMTP_HOST`
-- `SMTP_PORT`
-- `SMTP_USER`
-- `SMTP_PASS`
-- `SALON_EMAIL`
-- `PORT`
+```env
+SMTP_HOST=
+SMTP_PORT=
+SMTP_USER=
+SMTP_PASS=
+SALON_EMAIL=
+PORT=3001
+```
 
-### Gmail notes
-
-If you use Gmail SMTP, use an App Password (requires 2FA). Regular account passwords will fail authentication.
-
-## Routes
-
-- `/` → `src/pages/Home.jsx`
-- `/services` → `src/pages/Services.jsx`
-- `/contact` → `src/pages/Contact.jsx`
-
-## Content & Customization
-
-- Navigation/section text/translations:
-  - `src/i18n/translations/en.js`
-  - `src/i18n/translations/de.js`
-- Language provider: `src/i18n/LangContext.jsx`
-- Global styles and tokens: `src/index.css`
-- Hero/gallery/services/contact content: page files in `src/pages/`
-- Footer contact/map: `src/components/Footer.jsx`
-
-## Build
-
+## Scripts
 ```bash
-npm run build
-npm run preview
+npm run dev      # local frontend dev server
+npm run build    # production build
+npm run preview  # preview the production build
+npm run server   # local Express email API server
 ```
